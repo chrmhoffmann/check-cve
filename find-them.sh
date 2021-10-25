@@ -32,11 +32,11 @@ function find_cr_in_branches() {
     git checkout -f
 
     # check branches
-    for branch in `git branch -a --sort=-committerdate`; do
+    for branch in `git branch -a --sort=committerdate`; do
 	git checkout $branch
 	while IFS='' read -r QCFIXID || [ -n "${QCFIXID}" ]; do
 	    git log | grep -B 20 "${QCFIXID}" >> $asb_file.out
-	done < $asb_out_file
+	done < $asb_file
     done
     cd -
 }
@@ -60,6 +60,10 @@ asb_file=`realpath ${asb_file}`
 asb_out_file=`realpath ${asb_out_file}`
 
 download_asb $asb $asb_file
+
+# test two hits
+echo "2860206" >> $asb_file
+echo "2867994" >> $asb_file
 
 for repo in $repos; do
     checkout_or_update $repo

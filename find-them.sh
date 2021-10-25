@@ -55,8 +55,9 @@ asb=$1
 asb_file=asb_${asb}_crid.txt
 asb_out_file=$asb_file.out
 
-touch $asb_file
+touch $asb_file $asb_out_file
 asb_file=`realpath ${asb_file}`
+asb_out_file=`realpath ${asb_out_file}`
 
 download_asb $asb $asb_file
 
